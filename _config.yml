@@ -26,7 +26,7 @@ meta:
     author:
         name: Jim Zhou  
         email: zhouhaner@qq.com
-        disqus: zhouhaner              # Disqus缩略标识
+        disqus: @zhouhaner              # Disqus缩略标识
         gcse: 000436425523390607183:6kv6jatvhty     # Google自定义搜索标识ID
         github: zhouhaner                 # GitHub账号
         gravatar:   # Gravatar头像标识
