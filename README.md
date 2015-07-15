@@ -1,16 +1,82 @@
-# Yi-Xin Liu's Personal Academic Website
+<br>
+<br>
+<br>
+<br>
+<br>
 
-This website is based on the HPSTR Jekyll Theme by [Michael Rose](https://github.com/mmistakes) and the Clean Blog Theme by [David Miller](https://github.com/davidtmiller/). It has been deployed to Github Pages at [http://liuyxpp.github.io](http://liuyxpp.github.io) with custom domain at [http://ngpy.org](http://ngpy.org).
 
-## Important Notice
 
-If you wish to use the theme of this website, please follow the guidelines below:
+学生，程序猿，写字人
 
-1. Please give credit by starring [this project](https://github.com/liuyxpp/liuyxpp.github.io) and/or display this line on your website: "This website is powered by [LYX Jekyll theme](https://github.com/liuyxpp/liuyxpp.github.io)".
-2. Remove all personal materials and personal information about me (Yi-Xin Liu).
-3. Remove all the contents in the following directories: `_posts`, `_drafts`, `_data`, `_site`, `CV`, `downloads`, `images`, `publications`, `research`, and `software`.
-4. Modify the configuration file `_config.yml` to add your own personal information.
-5. Add your contents.
-6. Publish your website.
+喜欢摄影，旅行，读书。
 
-**PLEASE DO NOT PUBLISH YOUR WEBSITE BEFORE YOU REMOVE ALL COPYRIGHT MATERIAL!**
+热爱生活，热爱女人。
+
+总是捣鼓些新奇玩意。
+
+在这里会写些日常随笔，读书笔记，技术摘要。
+
+至于博客对我的意义，无非就是座坟，堆砌点活着的证据。
+
+坟上的草，在我年轻时，就看着它一点点长起。
+
+新浪微博:[**JowayW**](http://weibo.com/670425438?from=profile&wvr=5&loc=infdomain)
+
+QQ: **670425438**
+
+邮箱：**joway@joway.wang**
+
+Facebook:**Joway Wong**
+
+github:[**Joway**](http://github.com/joway)
+
+知乎：[**Joway**](http://www.zhihu.com/people/Joway)
+
+豆瓣：[**Joway**](http://www.douban.com/people/54019708/)
+
+备用网址：
+
+[Joway.wang](http://Joway.Wang)
+
+[Joway-W.com](http://Joway-W.com)
+
+[joway.tk](http://joway.tk)
+
+[joway.github.io](http://joway.github.io)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div align="center">
+      	<p>
+        <strong>微信或支付宝扫描二维码即可赞助作者！</strong><br>
+       <img src="http://ww3.sinaimg.cn/mw690/708485bfgw1epa4h2r85lj20dz0dz0u6.jpg" width="220" height="220" alt=""/> 
+       <img src="http://ww3.sinaimg.cn/mw690/708485bfgw1epa4jy4lydj2074074glw.jpg" width="225" height="225" alt=""/>
+       </p>
+</div>
+
+
+<script>
+var isOnPc=!(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent));
+if(isOnPc) {
+	window.tctipConfig = {
+		staticPrefix: "http://joway.wang",
+		buttonImageId: 6,
+		list:{
+			alipay: { qrimg: "http://joway.wang/images/alipay.png"},
+			weixin:{qrimg: "http://joway.wang/images/wechat.png"}
+		}
+	};
+}
+</script>
+
+
+<script src="/js/tctip.min.js"></script>

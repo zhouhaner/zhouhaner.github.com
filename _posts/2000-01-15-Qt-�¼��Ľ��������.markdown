@@ -1,0 +1,140 @@
+---
+layout: post
+title: "Qt-事件的接受与忽略" 
+comments: true
+share: true
+tags: Qt
+---
+
+
+## 初始版本： ##
+
+	//!!! Qt5
+	// ---------- custombutton.h ---------- //
+	class CustomButton : public QPushButton
+	{
+	    Q_OBJECT
+	public:
+	    CustomButton(QWidget *parent = 0);
+	private:
+	    void onButtonCliecked();
+	};
+	 
+	// ---------- custombutton.cpp ---------- //
+	CustomButton::CustomButton(QWidget *parent) :
+	    QPushButton(parent)
+	{
+	    connect(this, &CustomButton::clicked,
+	            this, &CustomButton::onButtonCliecked);
+	}
+	 
+	void CustomButton::onButtonCliecked()
+	{
+	    qDebug() << "You clicked this!";
+	}
+	 
+	// ---------- main.cpp ---------- //
+	int main(int argc, char *argv[])
+	{
+	    QApplication a(argc, argv);
+	 
+	    CustomButton btn;
+	    btn.setText("This is a Button!");
+	    btn.show();
+	 
+	    return a.exec();
+	}
+
+
+点击按钮，会在控制台打印出“You clicked this!”字符串。
+
+向CustomButton类添加一个事件函数：
+
+## CustomButton.h ##
+	
+	#ifndef CUSTOMBUTTON_H
+	#define CUSTOMBUTTON_H
+	#include <QtGui>
+	#include <QtWidgets>
+	
+	class CustomButton : public QPushButton
+	{
+	    Q_OBJECT
+	public:
+	    CustomButton(QWidget *parent = 0);
+	    void mousePressEvent(QMouseEvent *event);
+	    //重写CustomButton的mousePressEvent()函数,把父类的实现覆盖掉了
+	    //注意!mousePressEvent()函数是本来父类QPushButton就有的！！！
+	private:
+	    void onButtonCliecked();
+	};
+	#endif // CUSTOMBUTTON_H
+
+
+## CustomButton.cpp ##
+
+	#include "CustomButton.h"
+	
+	CustomButton::CustomButton(QWidget *parent) :
+	    QPushButton(parent)
+	{
+	    connect(this, &CustomButton::clicked,
+	            this, &CustomButton::onButtonCliecked);
+	    //由于有自己版本的mousePressEvent()函数，所以不会去执行父类QPushButton版本的mousePressEvent()
+	    //但是，正因为如此，由于clicked信号是由父类的mousePressEvent()发出的
+	    //如果把它覆盖了，会导致它不会发出clicked信号，导致槽函数onButtonCliecked()无效
+	    //所以当重写事件回调函数时，时刻注意是否需要通过调用父类的同名函数来确保原有实现仍能进行！
+	
+	    //注意分清楚信号和事件的区别！
+	    //事件是会自己实时监听到合适时刻自动执行相关内容的
+	    //信号需要人为connect，并且需要槽函数进行执行
+	}
+	
+	void CustomButton::onButtonCliecked()
+	{
+	    qDebug() << "You clicked this!";
+	}
+	
+	void CustomButton::mousePressEvent(QMouseEvent *event)
+	{
+	    if (event->button() == Qt::LeftButton) {
+	        qDebug() << "left";
+	    } else {
+	        QPushButton::mousePressEvent(event);
+	    }
+	}
+
+
+
+我们可以把 Qt 的事件传递看成链状：如果子类没有处理这个事件，就会继续向其父类传递。
+
+Qt 的事件对象有两个函数：accept()和ignore()。
+
+前者用来告诉 Qt，这个类的事件处理函数想要处理这个事件；后者则告诉 Qt，这个类的事件处理函数不想要处理这个事件。
+
+可以使用isAccepted()来查询这个事件是不是已经被接收了。
+
+具体来说：如果一个事件处理函数调用了一个事件对象的accept()函数，这个事件就不会被继续传播给其父组件；如果它调用了事件的ignore()函数，Qt 会从其父组件中寻找另外的接受者。
+
+Qt 中的事件都是 protected 的，因此，重写的函数必定存在着其父类中的响应函数，所以，希望忽略事件（所谓忽略，是指自己不想要这个事件），只要调用父类的响应函数即可。
+
+Qt 做了特殊的设计：事件对象默认是 accept 的，而作为所有组件的父类QWidget的默认实现则是调用ignore()。这么一来，如果你自己实现事件处理函数，不调用QWidget的默认实现，你就等于是接受了事件；如果你要忽略事件，只需调用QWidget的默认实现。下面可以从代码级别来理解这一点，我们可以查看一下QWidget的mousePressEvent()函数的实现：
+
+	void QWidget::mousePressEvent(QMouseEvent *event)
+	{
+	    event->ignore();
+	    if ((windowType() == Qt::Popup)) {
+	        event->accept();
+	        QWidget* w;
+	        while ((w = QApplication::activePopupWidget()) && w != this){
+	            w->close();
+	            if (QApplication::activePopupWidget() == w)
+	                w->hide(); // hide at least
+	        }
+	        if (!rect().contains(event->pos())){
+	            close();
+	        }
+	    }
+	}
+
+待补充，未看懂

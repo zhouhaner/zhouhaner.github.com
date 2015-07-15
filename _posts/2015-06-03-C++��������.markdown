@@ -1,0 +1,24 @@
+---
+layout: post
+title: "C++常见错误" 
+comments: true
+share: true
+tags: 笔记
+---
+
+
+1. switch的case语句中不可定义任何对象，因为跳转定义对象是不合法的！
+
+但是很奇怪的一点:
+
+ 		case 3:
+			while (cin >> Name){
+				Student stu("Name");
+				lib.addStu(stu);
+			}
+			break;
+这样却是合法的，猜测原因在于：
+
+switch语句的各个case之间并没有用{}，所以在一个case里定义了一个东西在别的case都可以访问，但是case的跳转却会导致它们无法定义，所以不能用了。正是因为这个矛盾才导致不能直接在case里定义，但是可以手动加个代码块来弄！
+
+2. 当时用过了while (cin >> Name)这类时，流会因为eof而无效，这时要用cin.clear()!

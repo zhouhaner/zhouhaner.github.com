@@ -1,0 +1,163 @@
+---
+layout: post
+title: "Qt-综述及信号槽" 
+comments: true
+share: true
+tags: Qt
+---
+
+# 综述 #
+
+		Qt 是一个跨平台的框架。跨平台 GUI 通常有三种实现策略：
+	
+		API 映射：API 映射是说，界面库使用同一套 API，将其映射到不同的底层平台上面。
+		
+		API 模拟：前面提到，API 映射会“缺失”不同平台的特定功能，而 API 模拟则是解决这一问题。不同平台的有差异 API，将使用工具库自己的代码用于模拟出来。如微软提供的 DirectX
+		
+		GUI 模拟：任何平台都提供了图形绘制函数，例如画点、画线、画面等。有些工具库利用这些基本函数，在不同绘制出自己的组件，这就是 GUI 模拟。
+		
+		Qt Creator 帮助我们在 HelloWorld 项目文件夹下生成了四个文件：main.cpp，mainwindow.cpp，mainwindow.h 和 HelloWorld.pro。pro 文件就是 Qt 工程文件（project file），由 qmake 处理，生成 make 程序所需要的 makefile；main.cpp 里面就是一个main函数，作为应用程序的入口函数；其他两个文件就是先前我们曾经指定的文件名的文件。
+		
+		
+		#include <QApplication>
+		#include <QLabel>
+		
+		int main(int argc, char *argv[])
+		{
+		    QApplication app(argc, argv);
+		
+		    QLabel label("Hello, world");
+		    label.show();
+		
+		    return app.exec();
+		}
+		
+
+
+----------
+# 信号槽 #
+
+		
+		前两行是 C++ 的 include 语句，这里我们引入的是QApplication以及QLabel这两个类。main()函数中第一句是创建一个QApplication类的实例。对于 Qt 程序来说，main()函数一般以创建 application 对象
+		
+		GUI 程序是QApplication，非 GUI 程序是QCoreApplication。
+		QApplication实际上是QCoreApplication的子类。
+		
+		 application 对象用于管理 Qt 程序的生命周期，开启事件循环，这一切都是必不可少的。
+		
+		在我们创建了QApplication对象之后，直接创建一个QLabel对象，构造函数赋值“Hello, world”。
+		
+		最后调用QLabel的show()函数将其显示出来。
+		
+		main()函数最后，调用app.exec()，开启事件循环。我们现在可以简单地将事件循环理解成一段无限循环。正因为如此，我们在栈上构建了QLabel对象，却能够一直显示在那里（试想，如果不是无限循环，main()函数立刻会退出，QLabel对象当然也就直接析构了）。
+	
+	
+
+
+
+	当某个事件发生之后，比如，按钮检测到自己被点击了一下，它就会发出一个信号（signal）。
+	如果有对象对这个信号感兴趣，它就会使用连接（connect）函数，意思是，用自己的一个函数（成为槽（slot））来处理这个信号。
+	也就是说，当信号发出时，被连接的槽函数会自动被回调。
+	这就类似观察者模式：当发生了感兴趣的事件，某一个操作就会被自动触发。（这里提一句，Qt 的信号槽使用了额外的处理来实现，并不是 GoF 经典的观察者模式的实现方式。）
+	
+	
+	#include <QApplication>
+	#include <QPushButton>
+	 
+	int main(int argc, char *argv[])
+	{
+	    QApplication app(argc, argv);
+	 
+	    QPushButton button("Quit");
+	    QObject::connect(&button, &QPushButton::clicked，&QApplication::quit);
+	    button.show();
+	 
+	    return app.exec();
+	}
+	
+	按钮在 Qt 中被称为QPushButton。对它的创建和显示，同前文类似。
+	
+	在 Qt 5 中，QObject::connect()有五个重载：
+	QMetaObject::Connection connect(const QObject *, const char *,
+	                                const QObject *, const char *,
+	                                Qt::ConnectionType);
+	 
+	QMetaObject::Connection connect(const QObject *, const QMetaMethod &,
+	                                const QObject *, const QMetaMethod &,
+	                                Qt::ConnectionType);
+	 
+	QMetaObject::Connection connect(const QObject *, const char *,
+	                                const char *,
+	                                Qt::ConnectionType) const;
+	 
+	QMetaObject::Connection connect(const QObject *, PointerToMemberFunction,
+	                                const QObject *, PointerToMemberFunction,
+	                                Qt::ConnectionType)
+	 
+	QMetaObject::Connection connect(const QObject *, PointerToMemberFunction,
+	                                Functor);
+	
+	
+	这五个重载的返回值都是QMetaObject::Connection
+	connect(sender,signal,receiver,slot);
+	
+	这是我们最常用的形式。connect()一般会使用前面四个参数，
+	第一个是发出信号的对象，
+	第二个是发送对象发出的信号，
+	第三个是接收信号的对象，
+	第四个是接收对象在接收到信号之后所需要调用的函数。
+	也就是说，当 sender 发出了 signal 信号之后，会自动调用 receiver 的 slot 函数。
+	我们可以套用这个形式去分析上面给出的五个重载。
+	第一个，sender 类型是const QObject *，signal 的类型是const char *，receiver 类型是const QObject *，slot 类型是const char *。这个函数将 signal 和 slot 作为字符串处理。
+	第二个，sender 和 receiver 同样是const QObject *，但是 signal 和 slot 都是const QMetaMethod &。我们可以将每个函数看做是QMetaMethod的子类。因此，这种写法可以使用QMetaMethod进行类型比对。
+	第三个，sender 同样是const QObject *，signal 和 slot 同样是const char *，但是却缺少了 receiver。这个函数其实是将 this 指针作为 receiver。
+	第四个，sender 和 receiver 也都存在，都是const QObject *，但是 signal 和 slot 类型则是PointerToMemberFunction。看这个名字就应该知道，这是指向成员函数的指针。
+	第五个，前面两个参数没有什么不同，最后一个参数是Functor类型。这个类型可以接受 static 函数、全局函数以及 Lambda 表达式。
+	由此我们可以看出，connect()函数，sender 和 receiver 没有什么区别，都是QObject指针；主要是 signal 和 slot 形式的区别。具体到我们的示例，我们的connect()函数显然是使用的第五个重载，最后一个参数是QApplication的 static 函数quit()。也就是说，当我们的 button 发出了clicked()信号时，会调用QApplication的quit()函数，使程序退出。
+	信号槽要求信号和槽的参数一致，所谓一致，是参数类型一致。如果不一致，允许的情况是，槽函数的参数可以比信号的少，即便如此，槽函数存在的那些参数的顺序也必须和信号的前面几个一致起来。这是因为，你可以在槽函数中选择忽略信号传来的数据（也就是槽函数的参数比信号的少），但是不能说信号根本没有这个数据，你就要在槽函数中使用（就是槽函数的参数比信号的多，这是不允许的）。
+	
+	// !!! Qt 5
+	#include <QApplication>
+	#include <QPushButton>
+	
+	int main(int argc, char *argv[])
+	{
+	    QApplication app(argc, argv);
+	
+	    QPushButton button("Quit");
+	    QObject::connect(&button, &QPushButton::clicked, &QApplication::quit);
+	    button.show();
+	
+	    return app.exec();
+	}
+	
+	
+	
+	
+	#include <QApplication>
+	#include <QPushButton>
+	#include <QDebug>
+	int main(int argc, char *argv[])
+	{
+	    QApplication a(argc, argv);
+	    QPushButton button("Quit");
+	    QObject::connect(&button,&QPushButton::clicked,[](bool){
+	        qDebug() << "You clicked me!";
+	    });
+	    button.show();
+	    return a.exec();
+	}
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+

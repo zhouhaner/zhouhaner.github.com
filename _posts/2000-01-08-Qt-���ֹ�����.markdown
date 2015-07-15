@@ -1,0 +1,93 @@
+---
+layout: post
+title: "Qt-布局管理器" 
+comments: true
+share: true
+tags: Qt
+---
+
+
+我们创建一个窗口，把按钮放上面，把图标放上面，这样就成了一个界面。在放置时，组件的位置尤其重要。我们必须要指定组件放在哪里，以便窗口能够按照我们需要的方式进行渲染。这就涉及到组件定位的机制。Qt 提供了两种组件定位机制：绝对定位和布局定位。
+
+绝对定位就是一种最原始的定位方法：给出这个组件的坐标和长宽值。这样，Qt 就知道该把组件放在哪里以及如何设置组件的大小。但是这样做带来的一个问题是，如果用户改变了窗口大小，比如点击最大化按钮或者使用鼠标拖动窗口边缘，采用绝对定位的组件是不会有任何响应的。如果你需要让组件自动更新，就要自己编写相应的函数来响应这些变化。或者，还有更简单的方法：禁止用户改变窗口大小。但这总不是长远之计。
+
+针对这种变化的需求，Qt 提供了另外的一种机制——布局——来解决这个问题。你只要把组件放入某一种布局，布局由专门的布局管理器进行管理。当需要调整大小或者位置的时候，Qt 使用对应的布局管理器进行调整。
+
+
+效果图：
+
+![](http://files.devbean.net/images/2012/09/layout-demo.png)
+
+![](http://files.devbean.net/images/2012/09/layout-demo-2-600x88.png)
+
+	#include "mainwindow.h"
+	//#include <QApplication>
+	//#include <QWidget>
+	//#include <QObject>
+	//#include <QSpinBox>
+	//#include <QSlider>
+	//#include <QHBoxLayout>
+	//也可以用下面的两个include来代替所有界面头文件和组件头文件
+	#include <QtGui>
+	#include <QtWidgets>
+	int main(int argc, char *argv[])
+	{
+	    QApplication a(argc, argv);
+	
+	    QWidget window;
+	    window.setWindowTitle("Enter your age");
+	
+	    QSpinBox *spinBox = new QSpinBox(&window);
+	    //QSpinBox就是只能输入数字的输入框，并且带有上下箭头的步进按钮。
+	
+	    QSlider *slider = new QSlider (Qt::Horizontal,&window);
+	    //QSlider则是带有滑块的滑竿。
+	    
+	    //使用setRange()函数设置其范围。
+	    spinBox->setRange(0,130);
+	    slider->setRange(0,130);
+	
+	    //下面有两个connect，使得无论哪一方改变，都会同步改变另一方！
+	    
+	    QObject::connect(slider,&QSlider::valueChanged,spinBox,&QSpinBox::setValue);
+	    
+	    //这个是函数指针！之所以要用函数指针来绑定QSpinBox的valueChanged是因为valueChanged有两个信号
+	    //分别是：void valueChanged(int)，void valueChanged(const QString &)
+	    //用函数指针可以指定它发出int版本的信号类型然后再连接。
+	    void (QSpinBox:: *spinBoxSignal)(int)=&QSpinBox::valueChanged;
+	    QObject::connect(spinBox,spinBoxSignal,slider,&QSlider::setValue);
+	    
+	    spinBox->setValue(35);//默认值35
+	
+	    //QHBoxLayout就是布局管理器（在堆上建立）
+	    QHBoxLayout *layout = new QHBoxLayout;
+	    
+	    //(widget是控件/部件/组件的意思)
+	    //下面添加上面所设置好的组件
+	    layout->addWidget(spinBox);
+	    layout->addWidget(slider);
+	    
+	    //并把该布局管理器设置为窗口的布局管理器
+	    //并且，布局管理器很聪明地做出了正确的行为：保持QSpinBox宽度不变，自动拉伸QSlider的宽度。
+	    window.setLayout(layout);
+	
+	    window.show();
+	
+	    return a.exec();
+	}
+
+
+
+Qt 提供了几种布局管理器供我们选择：
+ 
+- QHBoxLayout：按照水平方向从左到右布局；
+
+- QVBoxLayout：按照竖直方向从上到下布局；
+
+- QGridLayout：在一个网格中进行布局，类似于 HTML 的 table；
+
+- QFormLayout：按照表格布局，每一行前面是一段文本，文本后面跟随一个组件（通常是输入框），类似 HTML 的 form；
+
+- QStackedLayout：层叠的布局，允许我们将几个组件按照 Z 轴方向堆叠，可以形成向导那种一页一页的效果。
+
+

@@ -1,0 +1,98 @@
+---
+layout: post
+title: "Qt-深入Qt5信号槽新语法" 
+comments: true
+share: true
+tags: Qt
+---
+
+
+
+仍然使用我们在自定义信号槽中设计的Newspaper类。
+
+	//!!! Qt5
+	#include <QObject>
+	
+	////////// newspaper.h
+	class Newspaper : public QObject
+	{
+	    Q_OBJECT
+	public:
+	    Newspaper(const QString & name) :
+	        m_name(name)
+	    {
+	    }
+	
+	    void send() const
+	    {
+	        emit newPaper(m_name);
+	    }
+	
+	signals:
+	    void newPaper(const QString &name) const;
+	
+	private:
+	    QString m_name;
+	};
+	
+	////////// reader.h
+	#include <QObject>
+	#include <QDebug>
+	
+	class Reader : public QObject
+	{
+	    Q_OBJECT
+	public:
+	    Reader() {}
+	
+	    void receiveNewspaper(const QString & name) const
+	    {
+	        qDebug() << "Receives Newspaper: " << name;
+	    }
+	};
+	
+	////////// main.cpp
+	#include <QCoreApplication>
+	
+	#include "newspaper.h"
+	#include "reader.h"
+	
+	int main(int argc, char *argv[])
+	{
+	    QCoreApplication app(argc, argv);
+	
+	    Newspaper newspaper("Newspaper A");
+	    Reader reader;
+	    QObject::connect(&newspaper, &Newspaper::newPaper,
+	                     &reader,    &Reader::receiveNewspaper);
+	    
+	    //这里我们使用了取址操作符，取到Newspaper::newPaper()信号的地址，
+	    //同样类似的取到了Reader::receiveNewspaper()函数地址。编译器能够
+	    //利用这两个地址，在编译期对这个连接操作进行检查，如果有个任何错误
+	    //（包括对象没有这个信号，或者信号参数不匹配等），编译时就会发现。
+		newspaper.send();
+	
+	    return app.exec();
+	}
+
+如果信号有重载，比如我们向Newspaper类增加一个新的信号：
+
+	void newPaper(const QString &name, const QDate &date);
+
+此时如果还是按照前面的写法，编译器会报出一个错误：由于这个函数（注意，信号实际也是一个普通的函数）有重载，因此不能用一个取址操作符获取其地址。
+
+对此，我们也给出了一个解决方案，使用一个函数指针来指明到底是哪一个信号：
+
+	void (Newspaper:: *newPaperNameDate)(const QString &, const QDate &) = &Newspaper::newPaper;
+	QObject::connect(&newspaper, newPaperNameDate,
+	                 &reader,    &Reader::receiveNewspaper);
+
+我们使用了函数指针newspaperNameDate声明一个带有QString和QDate两个参数，返回值是 void 的函数，将该函数作为信号，与Reader::receiveNewspaper()槽连接起来。显式指明所需要用到的那个函数就行了。
+
+也可以写成：
+
+	QObject::connect(&newspaper,
+	                 (void (Newspaper:: *)(const QString &, const QDate &))&Newspaper::newPaper,
+	                 &reader,
+	                 &Reader::receiveNewspaper);
+

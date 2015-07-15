@@ -1,72 +1,108 @@
-title:            Yi-Xin Liu
-description:      "Dr. Yi-Xin Liu is a lecturer and researcher working in the field of polymer physics at Fudan University. He currently is working at MRL@UCSB as a visiting researcher."
-disqus_shortname: ngpy
-reading_time:     true
-words_per_minute: 200
-#url:                    # blank for local preview
-url: http://ngpy.org   # for production
-header-img: images/homepage.jpg
-excerpt_separator: "<!--more-->"
+﻿title:            Joway
+description:      沧浪之水清兮，可以濯吾缨。 沧浪之水浊兮，可以濯吾足。
+logo:             site-logo.png
+disqus_shortname: Joway
+search:           true
+# Change url to your domain. Leave localhost server or blank when working locally.
+url:              http://joway.wang
+asset_url:        http://joway.wang 
 
 # Owner/author information
 owner:
-  name:           Yi-Xin Liu
-  avatar:         avatar.jpg
-  bio:            "Dr. Yi-Xin Liu is a lecturer and researcher working in the field of polymer physics at Fudan University. He currently is also working at MRL@UC Santa Barbara as a visiting researcher."
-  email:          lyx@fudan.edu.cn
+  name:           Joway.W
+  avatar:         bio-photo.jpg
+  email:          670425438@qq.com
   # Social networking links used in footer. Update and remove as you like.
-  twitter: lyxfudan
-  facebook:
-  github: liuyxpp
-  stackexchange:
-  linkedin:
-  instagram:
-  flickr:
-  tumblr:
-  # google plus id, include the '+', eg +mmistakes
-  google_plus:
-
-# Background image to be tiled on all pages
-background:
+  twitter:        
+  facebook:       
+  github:         joway
+  stackexchange:  
+  linkedin:       
+  instagram:      
+  flickr:         
+  tumblr:         
+  weibo:          http://weibo.com/670425438 
+  # For Google Authorship https://plus.google.com/joway
+  google_plus:    https://plus.google.com/joway
 
 # Analytics and webmaster tools stuff goes here
-google_analytics: UA-31783224-1  # Analytics Property ID
-google_verify: vCNYuIbRPqv4coJvcqQglEsd4IBd9p4cP0AdERyG86w  # Webmaster
+google_analytics:   
+google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:
+bing_verify:         
+google_ads_display: false
+tb_ads_display: false
+# Links to include in top navigation
+# For external links add external: true
+links:
+  - title: 主页
+    url: /
+  - title: 博客
+    url: /blog.html
+  - title: 分类
+    url: /tags.html
+  - title: 项目
+    url: /project.html
+  - title: 相册
+    url: /photos/index.html
+  - title: 留言板
+    url: /message.html
+  - title: 关于
+    url: /about.html
+    external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    Asia/Shanghai
 future:      true
-highlighter: pygments
-markdown:    kramdown
-gems:
-  - jekyll-sitemap
-sass:
-  sass_dir: _sass
-  style: compressed
+highlighter:  pygments
+markdown:    redcarpet
 
-# http://jekyllrb.com/docs/permalinks/
-permalink:   /:year/:month/:title  #/:categories/:title/
-
-# Amount of post to show on home page
-paginate: 5
-paginate_path: "blog/page:num/"
+# https://github.com/mojombo/jekyll/wiki/Permalinks
+permalink:   /blog/:year/:month/:day/:title.html
 
 kramdown:
-  input: GFM
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
-  toc_levels: 1..3
-  use_coderay: true
+  toc_levels: 1..6
+  use_coderay: false
 
   coderay:
-    coderay_line_numbers: inline
+    coderay_line_numbers: 
     coderay_line_numbers_start: 1
     coderay_tab_width: 4
     coderay_bold_every: 10
     coderay_css: class
 
 include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+
+#gallerytag:
+#    dir: images/gallery
+#    url: images/gallery
+#    thumb_width: 250
+#    thumb_height: 250
+#    columns: 5
+#
+
+gallery:
+  # path to the gallery
+  dir: photos
+  # title for gallery index
+  title: "Photos"
+  # title prefix for gallery page. title=title_prefix+gallery_name
+  title_prefix: "Photos: "
+  # field to control sorting of galleries for the index page
+  # (possible values are: title, date_time, best_image)
+  sort_field: "date_time"
+  # sizes for thumbnails
+  thumbnail_size:
+    x: 200
+    y: 200
+  # custom configuration for individual gallery
+  # best_image is image for the index page (defaults to last image)
+  galleries:
+    Joway:
+    best_image: 01.JPG
+    
+

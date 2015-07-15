@@ -1,0 +1,101 @@
+---
+layout: post
+title: "Qt-自定义信号槽" 
+comments: true
+share: true
+tags: Qt
+---
+
+
+## newspaper.h ##
+
+	#ifndef NEWSPAPER
+	#define NEWSPAPER
+	#include <QObject>
+	//Newspaper这个类继承了QObject类。只有继承了QObject类的类，才具有信号槽的能力。
+	//凡是QObject类（不管是直接子类还是间接子类），都应该在第一行代码写上Q_OBJECT。
+	//不管是不是使用信号槽，都应该添加这个宏。这个宏的展开将为我们的类提供信号槽机制、
+	//国际化机制以及 Qt 提供的不基于 C++ RTTI 的反射能力。
+	//这个宏将由 moc做特殊处理，不仅仅是宏展开这么简单。moc 会读取标记了 Q_OBJECT 的
+	//头文件，生成以 moc_ 为前缀的文件，比如 newspaper.h 将生成 moc_newspaper.cpp。
+	//注意，由于 moc 只处理头文件中的标记了Q_OBJECT的类声明，不会处理 cpp 文件中的类
+	//似声明。因此，如果我们的Newspaper和Reader类位于 main.cpp 中，是无法得到 moc
+	//的处理的。所以建议把要加Q_OBKECT宏的文件弄到头文件中不要弄在cpp文件里
+	class Newspaper : public QObject{
+	    Q_OBJECT
+	public:
+	    Newspaper(const QString & name): m_name(name){} //构造函数
+	    void send(){            //成员函数
+	        emit newPaper(m_name);
+	    //emit 是 Qt 对 C++ 的扩展，是一个关键字（其实也是一个宏）。emit 的作用是发出newPaper()信号。
+	    //感兴趣的接收者会关注这个信号。我们将实际的报纸名字m_name当做参数传给这个信号。
+	    //当接收者连接这个信号时，就可以通过槽函数获得实际值。这样就完成了数据从发出者到接收者的一个转移。
+	    }
+	signals:  //signals 块所列出的，就是该类的信号。信号就是一个个的函数名，返回值是 void
+	          //参数是该类需要让外界知道的数据。
+	          //信号作为函数名，不需要在 cpp 函数中添加任何实现,moc会帮我们实现信号函数所需要的函数体.
+	    void newPaper(const QString &name);
+	private:
+	    QString m_name;
+	};
+	
+	#endif // NEWSPAPER
+	
+
+----------
+
+## reader.h ##
+
+	#ifndef READER
+	#define READER
+	#include <QObject>
+	#include <QDebug>
+	//因为这个类需要接受信号，所以将其继承QObject，并且添加Q_OBJECT宏。
+	class Reader : public QObject{
+	    Q_OBJECT
+	public:
+	    Reader(){} //构造函数
+	    //成员函数。
+	    //Qt 5 中，任何成员函数、static 函数、全局函数和 Lambda 表达式都可以作为槽函数。
+	    //与信号函数不同，槽函数必须自己完成实现代码。
+	    void receiveNewspaper(const QString & name){
+	        qDebug() << "Receives Newspaper:" << name;
+	        //qDebug类似于cout
+	    }
+	    };
+	#endif // READER
+
+
+----------
+
+
+## main.cpp ##
+
+
+	#include <QCoreApplication>
+	
+	#include "newspaper.h"
+	#include "reader.h"
+	
+	int main(int argc, char *argv[])
+	{
+	    QCoreApplication a(argc,argv);
+	    Newspaper newspaper("Newspaper A");
+	    Reader reader;
+	    QObject::connect(&newspaper,&Newspaper::newPaper,
+	                     &reader,&Reader::receiveNewspaper);
+	    //由于上面的连接，当下面的send()信号发出时，自动调用reader的槽函数，打印出语句
+	    newspaper.send();
+	    return a.exec();
+	}
+	
+	
+	//总结：
+	//发送者和接收者都需要是QObject的子类
+	//（当然，槽函数是全局函数、Lambda 表达式等无需接收者的时候除外）；
+	//使用 signals 标记信号函数，信号是一个函数声明，返回 void，不需要实现函数代码；
+	//槽函数是普通的成员函数，作为成员函数，会受到 public、private、protected 的影响；
+	//使用 emit 在恰当的位置发送信号
+	//使用QObject::connect()函数连接信号和槽。
+	
+	
