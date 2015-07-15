@@ -1,73 +1,90 @@
 ---
-layout:
-title:
+layout: default
+tagline: Supporting tagline
 ---
-<!DOCTYPE HTML>
-<!--
-	Aerial 1.0 by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Joway.W</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="{{ site.asset_url }}/js/skel.min.js"></script>
-		<script src="{{ site.asset_url }}/js/init.js"></script>
-		<noscript>
-            <link rel="stylesheet" href="{{ site.asset_url }}/css/skel.css" />
-			<link rel="stylesheet" href="{{ site.asset_url }}/css/style.css" />
-			<link rel="stylesheet" href="{{ site.asset_url }}/css/style-wide.css" />
-			<link rel="stylesheet" href="{{ site.asset_url }}/css/style-noscript.css" />
-		</noscript>
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-	</head>
-	<body class="loading">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Joway.W</h1>
-						<p> 沧浪之水清兮，可以濯吾缨。 沧浪之水浊兮，可以濯吾足。 </p>
-						<nav>
-							<ul>
-								<li><a href="{{ site.url }}/blog.html" class="fa fa-wordpress"><span>博客</span></a></li>
-								<li><a href="{{ site.url }}/tags.html" class="fa fa-tags"><span>分类</span></a></li>
-								<li><a href="{{ site.url }}/photos/index.html" class="fa fa-picture-o"><span>相册</span></a></li
-								<li><a href="{{ site.url }}/message.html" class="fa fa-comments"><span>留言板</span></a></li>
-								<li><a href="https://github.com/joway" class="fa fa-github-square"><span>Github</span></a></li>
-                            </ul>
-						</nav>
-					</header>
+{% include JB/setup %}
+{% for post in paginator.posts %}
+<ul id="post-list">
+		<span class="date" style="position: absolute; top: auto; bottom: auto;">
+                  <span class="month">{{ post.date | date:"%b"}}</span>
+                  <span class="day">{{ post.date | date:"%d"}}</span>
+               </span>
+	<li class="post text">
+		<div class="body">
 
-				<!-- Footer -->
-					<footer id="footer">
-					</footer>
-				
+			<div class="rich-content">
+				<h2 class="title"><a href="{{ post.url }}" rel="bookmark" title="{{ post.url }}">{{post.title}}</a></h2>
+				<!--
+				<a class="date" href="http://mingdays.wordpress.com/2011/11/29/%e5%8c%97%e9%a3%8e%e5%90%b9%e8%b5%b7/">
+					<span class="day"></span>
+					<span class="month"></span>
+				</a>
+				-->
+				{{post.content}}
 			</div>
 		</div>
-        
-<!-- 百度统计 --> 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?3d8cd5acad6f5c33f8cb1324eebd6426";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+		<div class="meta">
+			<span class="notes-count"><a href="http://xiangjixuan.xiangjixuan1361584543563.tpl.diandian.com/post/2012-06-13/40028776394#notes">10&nbsp;热度</a></span>
+			<span class="tags">
+				{% assign tags_list = post.tags %}
+				{% if site.JB.tags_list.provider == "custom" %}
+				{% include custom/tags_list %}
+				{% else %}
+				{% if tags_list.first[0] == null %}
+				{% for tag in tags_list %} 
+				<a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag }}-ref">{{ tag }}</a>
+				{% endfor %}
+				{% else %}
+				{% for tag in tags_list %} 
+				<a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref">{{ tag[0] }}</a>
+				{% endfor %}
+				{% endif %}
+				{% endif %}
+				{% assign tags_list = nil %}
+			</span>
+		</div>
+	</li>
+</ul>
+{% endfor %}
 
 
+<!-- Pagination links -->
+<div id="post-pagination" class="pagination">
+ <ul class="pages">
+  {% if paginator.previous_page %}
+  <li class="previous">
+    {% if paginator.previous_page == 1 %}
+    <a href="/">上一页</a>
+    {% else %}
+    <a href="/page{{paginator.previous_page}}">上一页</a>
+    {% endif %}
+  </li>
+  {% endif %}
 
+ 
+    <li class="page">
+      {% if paginator.page == 1 %}
+      <span class="current-page">1</span>
+      {% else %}
+      <a href="/">1</a>
+      {% endif %}
+    </li>
 
+    {% for count in (2..paginator.total_pages) %}
+    <li class="page">
+      {% if count == paginator.page %}
+      <span class="current-page">{{count}}</span>
+      {% else %}
+      <a href="/page{{count}}">{{count}}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  {% if paginator.next_page %}
+  <li class="next">
+    <a href="/page{{paginator.next_page}}">下一页</a>
+  </li>
+  {% endif %}
+	</ul>
+</div>
 
-	</body>
-</html>
