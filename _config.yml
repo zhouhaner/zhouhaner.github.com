@@ -81,9 +81,9 @@ JB :
   #
   comments :
     provider : disqus
-    disqus :
-      short_name : jekyllbootstrap
-    livefyre :
+    disqus : zhouhaner
+      short_name : Jim
+    livefyre : 
       site_id : 123
     intensedebate :
       account : 123abc
