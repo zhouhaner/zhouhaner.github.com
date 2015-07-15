@@ -78,8 +78,8 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : disqus
-    disqus : zhouhaner
+    provider : 
+    disqus : 
       short_name : jekyllbootstrap
     livefyre :
       site_id : 123
