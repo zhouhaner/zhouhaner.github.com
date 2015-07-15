@@ -1,10 +1,17 @@
 ---
-layout: post
-title: Hello world!
+layout: presentation
+title: 第一篇文章!
 category: default
 ---
 
-这是一篇测试文章，你可以在`_posts`目录修改或删除它。
+这是一篇测试文章
+
+我是周寒，
+这是我使用模板搭建的第一个网站，
+也就是我的博客，
+将来我会尽快完善这个网站，
+你可以关注我的微信公众号：寒尼玛
+也可以在github上关注我：zhouhaner
 
 现在，我可以：
 
