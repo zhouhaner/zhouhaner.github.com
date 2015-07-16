@@ -1,6 +1,6 @@
-name: Twister
-description: a powerful jekyll theme
-url: #place url
+name: Jim Zhou
+description: 这是周寒的博客主页
+url: zhouhaner.github.io
 baseurl: #place folder name if site is served in subfolder
 permalink: /:title/
 paginate: 8
