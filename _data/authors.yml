@@ -1,12 +1,12 @@
 -
-  id: someone
-  name: Some Person
+  id: Jim
+  name: Jim Zhou
   avatar: /profile-pic.jpg
-  bio: this is some more information about the author.
-  facebook: https://www.facebook.com/someone
-  twitter: https://twitter.com/someone
+  bio: 大风西狂，人胜万象！
+  facebook: https://www.github.com/zhouhaner
+  twitter: http://weibo.com/u/2614820653/home?wvr=5
   instagram: http://instagram.com/someone
-  email: someone@something.com
+  email: zhouhaner@qq.com
 -
   id: person
   avatar: /profile-pic.jpg

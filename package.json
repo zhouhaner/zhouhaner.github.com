@@ -1,11 +1,11 @@
 {
-  "name": "twister",
+  "name": "new fashion",
   "description": "A multimedia jekyll theme",
-  "author": "Digitalmind <info@digitalmind.ch>",
+  "author": "Jim Zhou",
   "version": "1.0.0",
   "repository": {
       "type": "git",
-      "url": "https://github.com/DigitalMindCH/twister"
+      "url": "https://github.com/zhouhaner/zhouhaner.github.com"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

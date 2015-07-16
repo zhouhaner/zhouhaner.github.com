@@ -1,31 +1,31 @@
 <div class="sidebar">
     <div class="widget">
-        <h3 class="title">Categories</h3>
+        <h3 class="title">分类</h3>
         <ul class="category_list">
             {% assign category_list = site.categories %}
             {% if category_list.first[0] == null %}
                 {% for category in category_list %}
-                    <li><a href="{{ site.category_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ category }}">{{ category }}</a></li>
+                    <li><a href="{{ site.category_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ category }}">{{ 分类 }}</a></li>
                 {% endfor %}
             {% else %}
                 {% for category in category_list %}
-                    <li><a href="{{ site.category_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ category[0] }}">{{ category[0] }}</a></li>
+                    <li><a href="{{ site.category_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ category[0] }}">{{ 分类[0] }}</a></li>
                 {% endfor %}
             {% endif %}
             {% assign category_list = nil %}
         </ul>
     </div>
     <div class="widget">
-        <h3 class="title">Tags</h3>
+        <h3 class="title">标签</h3>
         <ul class="tag_list">
             {% assign tag_list = site.tags %}
             {% if tag_list.first[0] == null %}
                 {% for tag in tag_list %}
-                    <li><a href="{{ site.tag_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ tag }}">{{ tag }}</a></li>
+                    <li><a href="{{ site.tag_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ tag }}">{{ 标签 }}</a></li>
                 {% endfor %}
             {% else %}
                 {% for tag in tag_list %}
-                    <li><a href="{{ site.tag_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ tag[0] }}">{{ tag[0] }}</a></li>
+                    <li><a href="{{ site.tag_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ tag[0] }}">{{ 标签[0] }}</a></li>
                 {% endfor %}
             {% endif %}
             {% assign tag_list = nil %}
@@ -33,7 +33,7 @@
     </div>
 
     <div class="widget">
-        <h3 class="title">Authors</h3>
+        <h3 class="title">作者</h3>
         <ul class="author_list">
             {% for author in site.data.authors %}
                 <li>
