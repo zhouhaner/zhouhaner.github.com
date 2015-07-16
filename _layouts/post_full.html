@@ -58,13 +58,13 @@
                         <div class="catsandtags">
                             {% if page.category %}
                             <p class="category">
-                                <span class="name">Categories:</span>
+                                <span class="name">分类:</span>
                                 {{ page.categories | category_links }}
                             </p>
                             {% endif %}
                             {% if page.tags %}
                             <p class="tags">
-                                <span class="name">Tags:</span>
+                                <span class="name">标签:</span>
                                 {% for tag in page.tags %}
                                     <a href="{{ site.tag_dir | prepend: site.baseurl | replace: '//', '/' }}/{{ tag }}">{{ tag }}</a>
                                 {% endfor %}
@@ -75,10 +75,10 @@
                     </article>
                     <div class="post_nav">
                         {% if page.previous.url %}
-                        <a class="prev" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-left"></i><span class="short"> prev</span><span class="long">ious post</span></a>
+                        <a class="prev" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-left"></i><span class="short"> 上</span><span class="long">y一篇</span></a>
                         {% endif %}
                         {% if page.next.url %}
-                        <a class="next" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}"><span class="short">next </span><span class="long">post </span><i class="fa fa-angle-right"></i></a>
+                        <a class="next" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}"><span class="short">下 </span><span class="long">一篇 </span><i class="fa fa-angle-right"></i></a>
                         {% endif %}
                     </div>
                 </div>
