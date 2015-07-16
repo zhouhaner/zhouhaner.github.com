@@ -1,126 +1,120 @@
-# This is the default format. 
-# For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink: /:categories/:year/:month/:day/:title 
+name: Twister
+description: a powerful jekyll theme
+url: #place url
+baseurl: #place folder name if site is served in subfolder
+permalink: /:title/
+paginate: 8
+paginate_path: /page/:num/
+tag_dir: /tag
+category_dir: /category
+author_dir: /author
+author_title_prefix: 'Posted by '
+media_folder: /img
+author_default_avatar: /profile-pic.jpg
+tumblr: "#"
+pinterest: "#"
+instagram: "#"
+twitter: "#"
+facebook: "#"
+youtube: "#"
+vimeo: "#"
+soundcloud: "#"
 
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-auto: true
-pygments: false
+encoding: utf-8
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      type: "standard"
+      homedisplay: "featimg"
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+relative_permalinks: false
+exclude: [.git, .gitignore, sass, .sass-cache, package.json, gruntfile.js, node_modules, README.md]
 
-# Themes are encouraged to use these universal variables 
-# so be sure to set them if your theme uses them.
-#
-title : 寒尼玛的小站
-tagline: 产品、科研小记
-author :
-  name : Jim Zhou
-  email : zhouhaner@qq.com
-  github : zhouhaner
-  微信公众号 : 寒尼玛（zhouhan100324）
-  微博 : 戒掉电子产品
-# The production_url is only used when full-domain names are needed
-# such as sitemap.txt 
-# Most places will/should use BASE_PATH to make the urls
-#
-# If you have set a CNAME (pages.github.com) set your custom domain here.
-# Else if you are pushing to username.github.com, replace with your username.
-# Finally if you are pushing to a GitHub project page, include the project name at the end.
-#
-production_url : http://zhouhaner.github.com
+# prose.io configurations
+prose:
+  media: "img"
+  metadata:
+    _posts:
+      - name: "title"
+        field:
+          element: "text"
+          label: "title"
+      - name: "layout"
+        field:
+          element: "select"
+          label: "Layout"
+          help: "display post at full width or with sidebar"
+          options:
+            - name: "with sidebar"
+              value: "post"
+            - name: "full width"
+              value: "post_full"
+      - name: "author"
+        field:
+          element: "text"
+          label: "Author"
+          help: "author id as defined within _data/authors.yml"
+          type: "text"
+      - name: "featimg"
+        field:
+          element: "text"
+          label: "Featured Image"
+          help: "featured image within the img-folder"
+          type: "text"
+      - name: "type"
+        field:
+          element: "select"
+          label: "Post Type"
+          help: "each type has some special feature"
+          options:
+            - name: "Standard"
+              value: "standard"
+            - name: "Image"
+              value: "image"
+            - name: "Gallery"
+              value: "gallery"
+            - name: "Audio"
+              value: "audio"
+            - name: "YouTube"
+              value: "youtube"
+            - name: "Vimeo"
+              value: "vimeo"
+      - name: "homedisplay"
+        field:
+          element: "select"
+          label: "Home Display"
+          help: "decide whether to display embedded element (for post types: audio, youtube, vimeo) or Featured Image on home page"
+          options:
+            - name: "Featured Image"
+              value: "featimg"
+            - name: "Embedded Element"
+              value: "iframe"
+      - name: "vimeo-embed"
+        field:
+          element: "text"
+          label: "Vimeo Embedding Code"
+          help: "Set post type to vimeo in order for this to work"
+      - name: "gallery-id"
+        field:
+          element: "text"
+          label: "Gallery ID"
+          help: "ID of the gallery defined within _data/galleries.yml - use include in content to use"
+      - name: "audio-embed"
+        field:
+          element: "text"
+          label: "Audio Embedding Code"
+          help: "Set post type to audio in order for this to work"
+      - name: "yt-video-id"
+        field:
+          element: "text"
+          label: "YouTube Video ID"
+          help: "Set post type to youtube in order for this to work. Do not set featured image, as the youtube video thumbnail will be used"
+          type: "text"
 
-# All Jekyll-Bootstrap specific configurations are namespaced into this hash
-#
-JB :
-  version : 0.2.13
-
-  # All links will be namespaced by BASE_PATH if defined.
-  # Links in your website should always be prefixed with {{BASE_PATH}}
-  # however this value will be dynamically changed depending on your deployment situation.
-  #
-  # CNAME (http://yourcustomdomain.com)
-  #   DO NOT SET BASE_PATH 
-  #   (urls will be prefixed with "/" and work relatively)
-  #
-  # GitHub Pages (http://username.github.com)
-  #   DO NOT SET BASE_PATH 
-  #   (urls will be prefixed with "/" and work relatively)
-  #
-  # GitHub Project Pages (http://username.github.com/project-name)
-  #
-  #   A GitHub Project site exists in the `gh-pages` branch of one of your repositories.
-  #  REQUIRED! Set BASE_PATH to: http://username.github.com/project-name
-  #
-  # CAUTION:
-  #   - When in Localhost, your site will run from root "/" regardless of BASE_PATH
-  #   - Only the following values are falsy: ["", null, false]
-  #   - When setting BASE_PATH it must be a valid url.
-  #     This means always setting the protocol (http|https) or prefixing with "/"
-  BASE_PATH : false
-
-  # By default, the asset_path is automatically defined relative to BASE_PATH plus the enabled theme.
-  # ex: [BASE_PATH]/assets/themes/[THEME-NAME]
-  #
-  # Override this by defining an absolute path to assets here.
-  # ex: 
-  #   http://s3.amazonaws.com/yoursite/themes/watermelon
-  #   /assets
-  #
-  ASSET_PATH : ture
-
-  # These paths are to the main pages Jekyll-Bootstrap ships with.
-  # Some JB helpers refer to these paths; change them here if needed.
-  #
-  archive_path: /archive.html
-  categories_path : /categories.html
-  tags_path : /tags.html
-
-  # Settings for comments helper
-  # Set 'provider' to the comment provider you want to use.
-  # Set 'provider' to false to turn commenting off globally.
-  #
-  comments :
-    provider : 
-    disqus : 
-      short_name : jekyllbootstrap
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
-    facebook :
-      appid : 123
-      num_posts: 5
-      width: 580
-      colorscheme: light
-   
-  # Settings for analytics helper
-  # Set 'provider' to the analytics provider you want to use.
-  # Set 'provider' to false to turn analytics off globally.
-  #        
-  analytics :
-    provider : google 
-    google : 
-        tracking_id : 'UA-65164517-1'
-    getclicky :
-      site_id : 
-    mixpanel :
-        token : '_MIXPANEL_TOKEN_'
-
-  # Settings for sharing helper. 
-  # Sharing is for things like tweet, plusone, like, reddit buttons etc.
-  # Set 'provider' to the sharing provider you want to use.
-  # Set 'provider' to false to turn sharing off globally.
-  #
-  sharing :
-    provider : true
-    
-  # Settings for all other include helpers can be defined by creating 
-  # a hash with key named for the given helper. ex:
-  #
-  #   pages_list :
-  #     provider : "custom"   
-  #
-  # Setting any helper's provider to 'custom' will bypass the helper code
-  # and include your custom code. Your custom file must be defined at:
-  #   ./_includes/custom/[HELPER]
-  # where [HELPER] is the name of the helper you are overriding.
-paginate: true
-paginate: 3 
