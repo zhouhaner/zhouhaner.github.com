@@ -1,8 +1,0 @@
-
-http://zhouhaner.github.com/archive.html
-http://zhouhaner.github.com/atom.xml
-http://zhouhaner.github.com/categories.html
-http://zhouhaner.github.com/index.html
-http://zhouhaner.github.com/pages.html
-http://zhouhaner.github.com/sitemap.txt
-http://zhouhaner.github.com/tags.html

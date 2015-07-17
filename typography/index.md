@@ -2,7 +2,7 @@
 layout: page
 title: Typography
 ---
-###### headings
+###### Heading
 
 # Heading 1
 

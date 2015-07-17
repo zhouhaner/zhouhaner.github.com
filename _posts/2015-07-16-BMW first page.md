@@ -5,6 +5,7 @@ vimeo-embed: <iframe src="http://v.qq.com/iframe/player.html?vid=s0016wil469&tin
 title: BWM宣传视频鉴赏--我的第一篇博文
 homedisplay: iframe
 tags: [video, iframe]
+feating: 1.jpg
 category: [video]
 ---
 好了，第一篇文章，就此到来。
