@@ -3,7 +3,7 @@ description: 这是周寒的博客主页
 url: zhouhaner.github.io
 baseurl: #place folder name if site is served in subfolder
 permalink: /:title/
-paginate: 8
+paginate: 4
 paginate_path: /page/:num/
 tag_dir: /tag
 category_dir: /category
