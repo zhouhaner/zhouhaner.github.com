@@ -1,12 +1,15 @@
 ---
-layout: page
-featimg: 8.jpg
-title: Page
+layout: post_full
+featimg: 眉山夜景.jpg
+title: 关于周寒
 ---
-## This is a static page
+## 关于周寒
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit voluptatibus, assumenda perspiciatis vel eos, molestias nisi cum accusantium commodi amet modi repellendus. Nostrum iure fugiat ducimus quae nesciunt distinctio ullam.
+周寒，现在是光电信息学院的一名研究生，电子科技大学。
 
-Modi consequuntur, ex, quod optio perferendis delectus libero excepturi recusandae, odio earum consectetur obcaecati repellat atque natus dignissimos quidem laboriosam nisi est? Hic ex ullam aspernatur perferendis doloremque odit eius nostrum cumque repudiandae sapiente culpa voluptate qui quasi, nulla dolorum facilis ab.
+上面的图片是我的家乡-眉山。
 
-Excepturi atque fuga illum fugiat consequatur, obcaecati, quaerat voluptatibus! Consequuntur ut dolore impedit magni officiis a voluptatibus odio, assumenda obcaecati illo reprehenderit veniam totam dolorem optio iure eius corporis aspernatur inventore quia perspiciatis placeat ratione repellat! Voluptatem.
+爱好摄影，前端，吃。
+
+是个胖子。
+
