@@ -1,5 +1,5 @@
 ---
-layout: post_full
+layout: page
 featimg: 眉山夜景.jpg
 title: 关于周寒
 ---
