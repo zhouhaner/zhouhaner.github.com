@@ -1,6 +1,6 @@
 ---
 layout: page
-featimg: 眉山夜景.jpg
+featimg: 9.jpg
 title: 关于周寒
 ---
 ## 关于周寒
@@ -12,4 +12,3 @@ title: 关于周寒
 爱好摄影，前端，吃。
 
 是个胖子。
-
