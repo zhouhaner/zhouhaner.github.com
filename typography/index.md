@@ -2,23 +2,25 @@
 layout: page
 title: Typography
 ---
-###### Heading
+这是一篇讲MARKDOWN排版的文章
+![markdown](http://zqhong.qiniudn.com/Mark%20Down%20M319207.jpg)
+###### 这是标题
 
-# Heading 1
+# 标题1
 
-## Heading 2
+## 标题2
 
-### Heading 3
+### 标题 3
 
-#### Heading 4
+#### 标题 4
 
-##### Heading 5
+##### 标题 5
 
-###### Heading 6
+###### 标题 6
 
 <br>
 
-###### text
+###### 文本键入
 
 some **bold** and _italic_ text and a [link](/{{ site.baseurl | replace: '//', '/' }}) that brings you back to the home page and a paragraph of lorem ipsum.
 
@@ -28,14 +30,14 @@ Hic eos earum ipsum, reprehenderit, ut facere officiis vitae voluptas sunt atque
 
 <br>
 
-###### blockquote 
+###### 块引用 
 
-> This is in a blockquote
-  and a second line
+> 第一行
+  写在这儿就是第二行了。
 
 <br>
 
-###### lists
+###### 表格
 1. this
 1. is
 1. an
@@ -50,10 +52,10 @@ Hic eos earum ipsum, reprehenderit, ut facere officiis vitae voluptas sunt atque
 
 <br>
 
-###### code
-You can show inline code (a link in markdown: `[linktext](url)`)
+###### 代码
+可以用这种方式来嵌入代码 `[linktext](url)`)
 
-or a whole block
+也可以嵌入一整块
 
 ``` scss
 blockquote{
