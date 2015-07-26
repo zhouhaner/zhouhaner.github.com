@@ -23,7 +23,7 @@ Python是个很有趣的语言，蛇性！拓展性良好。
 ##变量类型
 ###变量赋值
 变量赋值奇怪了，不需要定义。一段简单的代码就看懂了:
-```python
+---python
 #coding=utf-8
 #!/usr/bin/python
 
@@ -34,7 +34,7 @@ name = "John" # 字符串
 print counter
 print miles
 print name
-```
+---
 哈哈，不需要**声明**
 ###标准数据类型
 Python的标准数据类型包含5种：数字，字符串，列表，元组，字典（我看到字典的时候我是崩溃的，数据量好大）。
@@ -53,7 +53,7 @@ Python支持四种不同的数值类型：
 >从右到左索引默认从-1开始，最大范围是字符串的开头。
 
 对字符串的操作是有趣的，再来一串代码，轻松看懂！
-```python
+---python
 #coding=utf-8
 #!/usr/bin/python
 
@@ -65,13 +65,13 @@ print str[2:5] # 输出字符串中第三个至第五个之间的字符串
 print str[2:] # 输出从第三个字符开始的字符串
 print str * 2 # 输出字符串两次
 print str + "TEST" # 输出连接的字符串
-```
+---
 
 基本所有语言都是helloworld开。。
 
 ####Python列表
 Python列表和R、Matlab很相似。练操作都是相似的。使用量很多。
-```python
+---python
 #coding=utf-8
 #!/usr/bin/python
 
@@ -84,7 +84,7 @@ print list[1:3] # 输出第二个至第三个的元素
 print list[2:] # 输出从第三个开始至列表末尾的所有元素
 print tinylist * 2 # 输出列表两次
 print list + tinylist # 打印组合的列表
-```
+---
 
 ####Python元组
 元组在Python所表示的也是数组，阿赫，就是和列表差了个[] ().但是有些操作也是不一样的，这里指的注意。
@@ -92,7 +92,7 @@ print list + tinylist # 打印组合的列表
 
 ####Python元字典
 字典字典，就是什么都有，说的学术一点，就是：字典是无序的对象的集合。地点当中的元素是通过键来存取的，相对比列表的偏移存取是不相同的。
-```python
+---python
 #coding=utf-8
 #!/usr/bin/python
 
@@ -108,6 +108,6 @@ print dict[2] # 输出键为 2 的值
 print tinydict # 输出完整的字典
 print tinydict.keys() # 输出所有键
 print tinydict.values() # 输出所有值
-```
+---
 
 今日开始学起走，明日继续！
